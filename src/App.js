@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   Switch,
   Route,
@@ -7,8 +7,10 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 
+import LoginPage from "./pages/Auth/LoginPage";
+import SignUp from "./pages/Auth/SignUp";
+
 function App() {
-  const dispatchFn = useDispatch();
   const userState = useSelector((state) => state.user);
 
   let routes = (
@@ -25,8 +27,8 @@ function App() {
   if (!userState.authenticated) {
     routes = (
       <Switch>
-        <Route path="/login" exact render={(props) => <h1>Login</h1>} />
-        <Route path="/signup" exact render={(props) => <h1>SignUp</h1>} />
+        <Route path="/login" exact render={(props) => <LoginPage />} />
+        <Route path="/signup" exact render={(props) => <SignUp />} />
         <Redirect to="/login" />
       </Switch>
     );

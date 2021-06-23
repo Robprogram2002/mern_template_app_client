@@ -1,22 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:5000";
 
 export const signUp = createAsyncThunk(
   "user/signUp",
-  async (email, username, password) => {
-    const response = await fetch(`${BASE_URL}/signup`, {
+  async ({ email, username, password }) => {
+    console.log(email, username, password);
+    const response = await fetch(`http://localhost:5000/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        username: username,
         email: email,
-        name: username,
         password: password,
       }),
     });
+
     console.log(response);
+    if (!response.ok) throw new Error("Somehting went worng, please try again");
 
     return {
       message: "sign up successfully",
@@ -26,7 +29,8 @@ export const signUp = createAsyncThunk(
 
 export const singIn = createAsyncThunk(
   "user/signIn",
-  async (email, password) => {
+  async ({ email, password }) => {
+    
     const response = await fetch(`${BASE_URL}/signin`, {
       method: "POST",
       headers: {
@@ -36,16 +40,15 @@ export const singIn = createAsyncThunk(
     });
 
     console.log(response);
+
+    if (!response.ok) throw new Error("Somehting went worng, please try again");
+
     const data = await response.json();
+    console.log(data);
 
     return {
-        user : data.user,
-        token: data.token 
-    }
+      user: data.user,
+      token: data.token,
+    };
   }
 );
-
-
-
-
-

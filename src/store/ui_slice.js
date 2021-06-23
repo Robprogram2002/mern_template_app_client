@@ -21,6 +21,8 @@ const uiSlice = createSlice({
       state.laoding = false;
       state.errorResponse = true;
       state.errorMessage = errorMessage;
+
+      console.log(action);
     },
     [signUp.fulfilled]: (state, action) => {
       state.loading = false;
