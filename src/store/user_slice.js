@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  singIn } from "./user_actions";
+import { singIn } from "./user_actions";
 
 const userSlice = createSlice({
   name: "user",
@@ -9,6 +9,7 @@ const userSlice = createSlice({
     username: null,
     status: null,
     token: null,
+    authenticated: false,
   },
   reducers: {},
   extraReducers: {
@@ -19,6 +20,7 @@ const userSlice = createSlice({
       state.username = user.name;
       state.status = user.status;
       state.token = token;
+      state.authenticated = true;
     },
   },
 });
